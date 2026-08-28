@@ -2,27 +2,7 @@ const http = require("http");
 const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");
-const exporter = require("./src/allure-exporter.js");
-
-function resolveGenerateReport(exporterModule) {
-    if (typeof exporterModule === "function") {
-        return exporterModule;
-    }
-
-    if (!exporterModule || typeof exporterModule !== "object") {
-        return null;
-    }
-
-    return resolveGenerateReport(
-        exporterModule.generateReport || exporterModule.default
-    );
-}
-
-const generateReport = resolveGenerateReport(exporter);
-
-if (!generateReport) {
-    throw new TypeError("Unable to load generateReport from the exporter module.");
-}
+const { generateReport } = require("./src/allure-exporter.js");
 
 const PORT = Number(process.env.PORT) || 3000;
 const PUBLIC_DIR = path.join(__dirname, "public");

@@ -6,7 +6,11 @@ const { generateReport } = require("./src/allure-exporter");
 
 const PORT = Number(process.env.PORT) || 3000;
 const PUBLIC_DIR = path.join(__dirname, "public");
-const JOBS_DIR = path.join(__dirname, "output", "jobs");
+// Vercel's deployed files are read-only. /tmp is the writable directory.
+const OUTPUT_ROOT = process.env.VERCEL
+    ? path.join(process.env.TMPDIR || "/tmp", "allure-pdf-export")
+    : path.join(__dirname, "output");
+const JOBS_DIR = path.join(OUTPUT_ROOT, "jobs");
 const REPORT_RETENTION_MS = Number(process.env.REPORT_RETENTION_MS) || 60 * 60 * 1000;
 const CLEANUP_INTERVAL_MS = 10 * 60 * 1000;
 const activeJobs = new Set();

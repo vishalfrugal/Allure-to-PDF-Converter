@@ -12,11 +12,16 @@ CONFIGURATION
 const PROJECT_ROOT =
     path.join(__dirname, "..");
 
+// Vercel's deployed files are read-only. /tmp is writable but temporary.
+const OUTPUT_ROOT = process.env.VERCEL
+    ? path.join(process.env.TMPDIR || "/tmp", "allure-pdf-export")
+    : path.join(PROJECT_ROOT, "output");
+
 const DEFAULT_OUTPUT_DIR =
-    path.join(PROJECT_ROOT, "output", "allure-pdf-pages");
+    path.join(OUTPUT_ROOT, "allure-pdf-pages");
 
 const DEFAULT_FINAL_PDF =
-    path.join(PROJECT_ROOT, "output", "ALLURE_COMPLETE_REPORT.pdf");
+    path.join(OUTPUT_ROOT, "ALLURE_COMPLETE_REPORT.pdf");
 
 
 /*

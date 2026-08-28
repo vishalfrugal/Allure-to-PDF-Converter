@@ -1,4 +1,3 @@
-const chromium = require("@sparticuz/chromium").default;
 const { chromium: playwrightChromium } = require("playwright-core");
 const fs = require("fs");
 const path = require("path");
@@ -1248,6 +1247,8 @@ async function generateReport(options = {}) {
     console.log(
         "Starting Chromium..."
     );
+
+    const { default: chromium } = await import("@sparticuz/chromium");
 
 
     const browser =

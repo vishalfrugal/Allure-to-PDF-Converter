@@ -1,4 +1,4 @@
-const { generateReport } = require("./src/allure-exporter.js");
+const generateReport = require("./src/allure-exporter.js");
 
 const url = process.argv[2];
 

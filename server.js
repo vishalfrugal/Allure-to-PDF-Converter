@@ -2,7 +2,8 @@ const http = require("http");
 const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");
-const { generateReport } = require("./src/allure-exporter");
+const exporter = require("./src/allure-exporter");
+const generateReport = exporter.generateReport || exporter.default?.generateReport;
 
 const PORT = Number(process.env.PORT) || 3000;
 const PUBLIC_DIR = path.join(__dirname, "public");

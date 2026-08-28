@@ -1525,6 +1525,4 @@ if (require.main === module) {
     });
 }
 
-module.exports = {
-    generateReport
-};
+exports.generateReport = generateReport;

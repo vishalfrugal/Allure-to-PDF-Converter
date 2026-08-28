@@ -1,5 +1,24 @@
 const exporter = require("./src/allure-exporter");
-const generateReport = exporter.generateReport || exporter.default?.generateReport;
+
+function resolveGenerateReport(exporterModule) {
+    if (typeof exporterModule === "function") {
+        return exporterModule;
+    }
+
+    if (!exporterModule || typeof exporterModule !== "object") {
+        return null;
+    }
+
+    return resolveGenerateReport(
+        exporterModule.generateReport || exporterModule.default
+    );
+}
+
+const generateReport = resolveGenerateReport(exporter);
+
+if (!generateReport) {
+    throw new TypeError("Unable to load generateReport from the exporter module.");
+}
 
 const url = process.argv[2];
 

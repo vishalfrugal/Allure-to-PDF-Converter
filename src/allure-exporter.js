@@ -1,4 +1,5 @@
-const { chromium } = require("playwright");
+const chromium = require("@sparticuz/chromium").default;
+const { chromium: playwrightChromium } = require("playwright-core");
 const fs = require("fs");
 const path = require("path");
 const { PDFDocument } = require("pdf-lib");
@@ -1250,10 +1251,11 @@ async function generateReport(options = {}) {
 
 
     const browser =
-        await chromium.launch({
-
-            headless: true
-
+        await playwrightChromium.launch({
+            args: chromium.args,
+            defaultViewport: chromium.defaultViewport,
+            executablePath: await chromium.executablePath(),
+            headless: chromium.headless
         });
 
 

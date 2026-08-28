@@ -4,7 +4,7 @@ Convert a published Allure report into one downloadable `ALLURE_COMPLETE_REPORT.
 
 ## Requirements
 
-- Node.js 18 or newer
+- Node.js 22.17 or newer
 - A published Allure report URL accessible to the server
 - A server with enough memory to run headless Chromium
 - Writable storage for the temporary report files and generated PDF
@@ -13,7 +13,6 @@ Convert a published Allure report into one downloadable `ALLURE_COMPLETE_REPORT.
 
 ```bash
 npm install
-npx playwright install chromium
 ```
 
 ## Web application
@@ -42,7 +41,7 @@ npm run export -- https://example.com/allure/
 
 ## Storage and cleanup
 
-Each web request receives a unique job directory under `output/jobs/`. Intermediate section PDFs are deleted after the final PDF is merged. Completed job directories are automatically deleted after one hour, including the final PDF.
+Each web request receives a unique job directory under `output/jobs/` locally. On Vercel, temporary files are written under `/tmp` because the deployed filesystem is read-only. Intermediate section PDFs are deleted after the final PDF is merged. Completed job directories are automatically deleted after one hour, including the final PDF.
 
 Cleanup runs when the server starts and every 10 minutes while it is running. To configure a different retention period, set `REPORT_RETENTION_MS` in the deployment environment. The value is in milliseconds:
 

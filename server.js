@@ -150,7 +150,11 @@ cleanupExpiredReports();
 const cleanupTimer = setInterval(cleanupExpiredReports, CLEANUP_INTERVAL_MS);
 cleanupTimer.unref();
 
-server.listen(PORT, () => {
-    console.log(`Allure PDF web app running at http://localhost:${PORT}`);
-    console.log(`Reports expire after ${REPORT_RETENTION_MS / 60000} minutes.`);
-});
+if (require.main === module) {
+    server.listen(PORT, () => {
+        console.log(`Allure PDF web app running at http://localhost:${PORT}`);
+        console.log(`Reports expire after ${REPORT_RETENTION_MS / 60000} minutes.`);
+    });
+}
+
+module.exports = server;

@@ -2,7 +2,7 @@ const http = require("http");
 const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");
-const exporter = require("./src/allure-exporter");
+const exporter = require("./src/allure-exporter.js");
 
 function resolveGenerateReport(exporterModule) {
     if (typeof exporterModule === "function") {

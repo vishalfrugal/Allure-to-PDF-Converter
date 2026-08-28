@@ -1,4 +1,4 @@
-const exporter = require("./src/allure-exporter");
+const exporter = require("./src/allure-exporter.js");
 
 function resolveGenerateReport(exporterModule) {
     if (typeof exporterModule === "function") {
